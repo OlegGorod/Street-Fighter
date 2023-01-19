@@ -2,12 +2,24 @@
   display: flex;
   flex-direction: column;
   flex-basis: 250px;
+  align-items: center;
+  background: radial-gradient(closest-side, rgb(235 248 225 / 0.5), rgb(246 157 60 / 0.5));
+  padding: 10px 20px;
 }
 
-.fighter-preview___right {
-  align-items: flex-end;
+.fighter-preview___img {
+  height: 25vh;
 }
 
-.fighter-preview___left {
-  align-items: flex-start;
+.fighter-preview___info {
+  font-size: 35px;
+  color: black;
+  font-weight: bold;
+  font-family: fantasy;
+  display: flex;
+  gap: 10px;
+}
+
+.fighter-preview___info p {
+  margin: 0;
 }
