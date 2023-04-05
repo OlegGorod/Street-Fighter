@@ -1,16 +1,5 @@
 import { createElement } from '../helpers/domHelper';
 
-const fighterInfoBuilder = (propertyName, fighter, rootElem) => {
-  const name = rootElem.appendChild(createElement({
-    tagName: 'div',
-    className: `fighter-preview___info`,
-  }));
-  const nameTitle = name.appendChild(createElement({ tagName: 'p'}));
-  const capitalizedPropName = propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
-  nameTitle.textContent = `${capitalizedPropName}: `;
-  const nameDescription = name.appendChild(createElement({ tagName: 'p'}));
-  nameDescription.textContent = fighter[propertyName];
-}
 
 export function createFighterPreview(fighter, position) {
   const positionClassName = position === 'right' ? 'fighter-preview___right' : 'fighter-preview___left';
@@ -18,23 +7,25 @@ export function createFighterPreview(fighter, position) {
     tagName: 'div',
     className: `fighter-preview___root ${positionClassName}`,
   });
+ 
+  const {attack, health, name, defense} = fighter;
+  const fighterInfo = createElement({
+    tagName: 'div',
+    className: `fighter-preview__info`
+  });
+  const fighterImage = createFighterImage(fighter)
 
+  fighterInfo.innerHTML = `
+  <h2>Name: ${name}</h2>
+  <div>Attack: ${attack}</div>
+  <div>Health: ${health}</div>
+  <div>Defense: ${defense}</div>
+  `;
+  fighterElement.append(fighterInfo, fighterImage)
   // todo: show fighter info (image, name, health, etc.)
-  const fragment = document.createDocumentFragment();
 
-  fighterInfoBuilder('name', fighter, fragment);
-  fighterInfoBuilder('health', fighter, fragment);
-  fighterInfoBuilder('attack', fighter, fragment);
-  fighterInfoBuilder('defense', fighter, fragment);
+  
 
-  const picture = fragment.appendChild(createElement({
-    tagName: 'img',
-    className: `fighter-preview___img`,
-    attributes: { src: fighter.source }
-  }));
-  picture.textContent = fighter.health;
-
-  fighterElement.appendChild(fragment);
   return fighterElement;
 }
 

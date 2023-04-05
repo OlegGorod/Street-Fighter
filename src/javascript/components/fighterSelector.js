@@ -2,7 +2,7 @@ import { createElement } from '../helpers/domHelper';
 import { renderArena } from './arena';
 import versusImg from '../../../resources/versus.png';
 import { createFighterPreview } from './fighterPreview';
-import { fighterService } from "../services/fightersService";
+import { fighterService } from '../services/fightersService';
 
 export function createFightersSelector() {
   let selectedFighters = [];
@@ -21,27 +21,14 @@ export function createFightersSelector() {
 const fighterDetailsMap = new Map();
 
 export async function getFighterInfo(fighterId) {
-  // get fighter info from fighterDetailsMap or from service and write it to fighterDetailsMap
   const fighter = await fighterService.getFighterDetails(fighterId);
   fighterDetailsMap.set(fighterId, fighter)
-  console.log('fighterDetailsMap', fighterDetailsMap);
   return fighter;
-  //
-  // await fighterService.getFighters()
-  //     .then(res => {
-  //       console.log('res', res);
-  //       res?.forEach(fighter => {
-  //         fighterDetailsMap.set(fighter._id, {...fighter})
-  //       })
-  //     })
-  //     .catch(console.error);
-  //
-  // return fighterDetailsMap.get(fighterId);
+  // get fighter info from fighterDetailsMap or from service and write it to fighterDetailsMap
 }
 
-function renderSelectedFighters(selectedFighters) {
+ function renderSelectedFighters(selectedFighters) {
   const fightersPreview = document.querySelector('.preview-container___root');
-  console.log('selectedFighters', selectedFighters);
   const [playerOne, playerTwo] = selectedFighters;
   const firstPreview = createFighterPreview(playerOne, 'left');
   const secondPreview = createFighterPreview(playerTwo, 'right');
